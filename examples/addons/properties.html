@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sample React</title>
+	<script src="../../build/react-with-addons.min.js"></script>
+	<script src="../../build/JSXTransformer.js"></script>
+	<script type="text/jsx">
+		/** @jsx React.DOM */
+		var inputComponent = React.createClass({
+			mixins: [React.addons.LinkedStateMixin],
+			componentWillMount: function() {
+				console.log('componentWillMount'+this.state.firstname);
+				},
+			componentDidMount: function() {
+				console.log('componentDidMount'+this.state.firstname);
+				},
+			componentWillReceiveProps: function() {
+				console.log('componentWillReceiveProps');
+				},
+			/*shouldComponentUpdate: function() {
+				console.log('shouldComponentUpdate');
+				},*/
+			componentWillUpdate: function() {
+				console.log('componentWillUpdate');
+				},
+			componentDidUpdate: function() {
+				console.log('componentDidUpdate');
+				},
+			componentWillUnmount: function() {
+				console.log('componentWillUnmount');
+				},
+			getInitialState: function() {
+				console.log('getInitialState');
+				return {list: this.props.list, firstname: 'John'};
+				},
+			handleList: function() {
+				var newList = this.state.list.concat(this.state.firstname);
+				this.setState({list: newList, firstname: ''});
+				},
+			render: function() {
+				console.log('render');
+				return (
+					<div>
+						<input type="text" valueLink={this.linkState('firstname')} />
+						<button value="ss" onClick={this.handleList}>Add</button>
+						<listComponent list={this.state.list}/>
+					</div>
+					);
+				}
+		});
+
+		var listComponent = React.createClass({
+			render: function(){
+				var createList = function(firstname) {
+					return <li>{firstname}</li>;
+				};
+				return (
+						<span>
+							<h3>Contact List</h3>
+							<ul>{this.props.list.map(createList)}</ul>
+						</span>
+					);
+			}
+		});
+		React.renderComponent(<inputComponent list={['aaa', 'bbb']} />,  document.getElementById('container'));
+	</script>
+</head>
+<body>
+	<div id="container"></div>
+</body>
+</html>

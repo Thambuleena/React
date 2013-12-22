@@ -13,22 +13,18 @@
     <script src="../../build/JSXTransformer.js"></script>
     <script type="text/jsx">
       /** @jsx React.DOM */
-      var NoLink = React.createClass({
-          mixins: [React.addons.LinkedStateMixin],
-          getInitialState: function() {
-            return {message: 'Hello!'};
-          },
-          render: function() {
-            return (
-                <span>
-                  <input type="text" valueLink={this.linkState('message')}  />
-                  {this.state.message}
-                </span>
-              );
-          }
-        });
+      var Ellipse = React.createClass({
+        mixins: [ShapePropertyMixin],
+       
+        render:function(){
+          var style = this.extractStyle(true);
+          style['border-radius'] = '50% 50%';
+       
+          return <div style={style} class="shape" />;
+        }
+      });
       React.renderComponent(
-        <NoLink />, document.getElementById('container')
+        <Ellipse />, document.getElementById('container')
         );
     </script>
   </body>

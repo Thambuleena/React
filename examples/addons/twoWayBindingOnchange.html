@@ -25,7 +25,12 @@
           render: function() {
             var value = this.state.value;
             console.log(this.state.value);
-            return <input type="text" value={value} onChange={this.handleChange} />;
+            return (
+              <span>
+                <input type="text" value={value} onChange={this.handleChange} />
+                {this.state.value}
+              </span>
+              );
           }
         });
       React.renderComponent(
