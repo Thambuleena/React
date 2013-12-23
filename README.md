@@ -35,6 +35,7 @@ Methods
 
 Why JSX?
 --------
+http://facebook.github.io/react/jsx-compiler.html
 React works out of the box without JSX. Simply construct your markup using the functions on React.DOM. For example, here's how to construct a simple link:
 
 var link = React.DOM.a({href: 'http://facebook.github.io/react'}, 'React');
