@@ -77,3 +77,23 @@ The componentWill* methods are called before the state change and the componentD
 
 
 
+----------------------------
+1head
+	
+
+version	category	property	created_ts
+1 			1111     font       ****
+1           1111     leding     ****
+1           1111     leftIndent	****
+2           1112     font       ****
+2           1112     rightIndent ***
+3           1111     size       ****
+4           1112     font       ****
+
+
+1111  font, leding, leftIndent, size
+1112  font, rightIndent, font
+
+
+
+

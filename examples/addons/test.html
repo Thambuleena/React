@@ -1,0 +1,124 @@
+<html>
+	<head>	
+	</head>
+	<body>
+
+		<script src="../../build/jquery.min.js"></script>
+		<script src="../../build/react.min.js"></script>
+		<script src="../../build/JSXTransformer.js"></script>
+		<script src="../../build/react-with-addons.min.js"></script>
+		<script type="text/jsx">
+			/** @jsx React.DOM */
+			var simpleComponent = React.createClass({
+				mixins: [React.addons.LinkedStateMixin],
+				getInitialState: function() {
+					console.log('getInitialState');
+					return {
+						firstName: 'Josh',
+						lastName: 'Smith',
+						userName: 'indhu',
+						nameList: []
+					};
+				},
+				getDefaultProps: function() {
+					console.log('getDefaultProps');
+					return {firstName: 'Williams'};
+				},
+				propTypes: function() {
+					console.log('propTypes');
+
+				},
+				componentWillMount: function() {
+					console.log(this.state.firstName)
+					this.setState({firstName: 'willMountName'});
+
+					
+					console.log(this.state.firstName);
+					console.log('componentWillMount');
+				},
+				componentDidMount: function() {
+					this.setProps({firstName: 'didpropsMountName'});
+					this.setState({firstName: 'didStateMountName'});
+					// $.get('https://api.github.com/users/octocat/gists', function(result){
+					// 	this.setState({
+					// 		firstName: result[0].user.login
+					// 	});
+					// 	console.log('ajax');
+					// }.bind(this));
+					console.log(this.state.firstName);
+					console.log('componentDidMount');
+
+				},
+				componentWillReceiveProps: function() {
+					this.setState({firstName: 'receivepropsState'})
+					console.log('will receive props');
+				},
+				shouldComponentUpdate: function(nextProps, nextState) {
+				  console.log("should component update");
+				  return !(nextState.firstName === 'test');
+				},
+				componentWillUpdate: function() {
+					this.setState({firstName: 'willUpdatepropsName'});
+					console.log(this.state.firstName);
+					console.log('componentWillUpdate');
+				},
+				componentDidUpdate: function() {
+					
+					console.log(this.state.firstName);
+					console.log('componentDidUpdate');
+				},
+				componentUpdateMount: function() {
+					this.setState({
+						firstName: 'hai'
+					});
+					console.log('componentUpdateMount');
+					this.setProps({firstName: 'Joseph'});
+				},
+				handleClear: function() {
+					console.log('sss');
+					// this.setState({
+					// 	firstName: 'hai'
+					// });
+					React.unmountComponentAtNode(document.getElementById('container'));
+				},
+				render: function() {
+					console.log('render');
+					return (
+						<div>
+							<p id="paraContainer">para</p>
+							<input type="text" refs="username" defaultValue={this.props.firstName}/>
+							<input type="text" valueLink={this.linkState('firstName')} />
+							{this.props.firstName}
+							{this.state.firstName}
+							<button onClick={this.handleClear} >Clear</button>
+							<childComponent fname={this.state.firstName} />
+						</div>
+					);
+				}
+			});
+
+			var childComponent = React.createClass({
+				getInitialState: function() {
+					return {fname: this.props.fname};
+				},
+				componentWillReceiveProps: function(nextProps) {
+					this.setState({fname: nextProps.fname});
+				},
+				shouldComponentUpdate: function(nextProps, nextState) {
+					return true;
+				},
+				componentWillUnmount: function() {
+					console.log('========unmount');
+				},
+				render: function() {
+					return <p>{this.state.fname}</p>;
+				}
+			});
+
+			React.renderComponent(<simpleComponent firstName="John" lastName="Peter"/>, document.getElementById('container'));
+			// React.unmountComponentAtNode(document.getElementById('container'));
+		</script>
+		<div id="container">sss</div>
+		<div id="container1">blah blah</div>
+	</body>
+</html>
